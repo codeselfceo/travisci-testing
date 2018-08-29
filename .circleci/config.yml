@@ -1,0 +1,49 @@
+version: 2
+jobs:
+  install:
+    docker:
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+            - dependencies-
+      - run:
+          name: "Installing dependencies..."
+          command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-{{ checksum "package.json" }}
+  compile:
+    docker:
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - run:
+          name: "Building application..."
+          command: yarn run build
+  deploy:
+    docker:
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - run:
+          name: "Shipping..."
+          command: yarn run deploy
+workflows:
+  version: 2
+  compile_and_test:
+    jobs:
+      - install
+      - compile:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - install
+            - compile
+          filters:
+            branches:
+              only: master

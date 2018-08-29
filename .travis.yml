@@ -1,0 +1,16 @@
+language: node_js
+node_js: stable
+cache:
+  directories:
+    - node_modules
+git:
+  depth: 3
+jobs:
+  include:
+    - stage: Install
+      name: "Installing dependencies..."
+      script: yarn install
+    - stage: Compile
+      name: "Building & Shipping..."
+      before_script: yarn run-script build
+      script: if [ "${TRAVIS_BRANCH}" = "master" ]; then yarn run deploy; fi
