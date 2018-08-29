@@ -7,9 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - dependencies-{{ checksum "yarn.lock" }}
-            - dependencies-
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: install-dependencies
           command: yarn install
@@ -17,7 +15,7 @@ jobs:
           paths:
             - ~/.cache/yarn
             - ./node_modules
-          key: dependencies-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
   compile:
     docker:
       - image: circleci/node:10.9.0
