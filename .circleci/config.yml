@@ -24,7 +24,7 @@ jobs:
           key: v2-dependencies-{{ checksum "package.json" }}
       - run:
           name: app-build
-          command: yarn run build
+          command: yarn add @angular/cli && yarn run build
       - store_artifacts:
           path: ~/dist/ci-test
           destination: dist-folder
@@ -37,7 +37,7 @@ jobs:
           key: v2-dependencies-{{ checksum "package.json" }}
       - run:
           name: app-deploy
-          command: yarn run deploy
+          command: yarn add firebase-tools && yarn run deploy
 workflows:
   version: 2
   compile_and_test:
