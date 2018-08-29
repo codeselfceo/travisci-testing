@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:10.9
     working_directory: ~/ci-test
     steps:
       - checkout
@@ -19,7 +19,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
   compile:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:10.9
     steps:
       - checkout
       - run:
@@ -27,7 +27,7 @@ jobs:
           command: yarn add @angular/cli && yarn run build
   deploy:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:10.9
     steps:
       - checkout
       - run:
