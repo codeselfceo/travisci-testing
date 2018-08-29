@@ -18,4 +18,4 @@ jobs:
       if: branch = master
       name: "Shipping app..."
       before_script: yarn run build
-      script: if [ "${TRAVIS_BRANCH}" = "master" ]; then yarn run deploy; fi
+      script: yarn run deploy
