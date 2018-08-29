@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
 		"deploy": "firebase deploy --token 1/3ukV0dWtc_p80O6VXH2T8JgNG1C4ZxmshGhZr3gyeJY",
     "test": "ng test",
     "lint": "ng lint",
