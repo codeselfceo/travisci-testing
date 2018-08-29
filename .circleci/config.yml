@@ -10,7 +10,7 @@ jobs:
           key: v2-dependencies-{{ checksum "package.json" }}
       - run:
           name: install-dependencies
-          command: yarn install
+          command: yarn add @angular/cli && yarn add firebase-tools
       - save_cache:
           key: v2-dependencies-{{ checksum "package.json" }}
           paths:
