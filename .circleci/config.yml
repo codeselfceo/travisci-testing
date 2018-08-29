@@ -27,7 +27,7 @@ jobs:
           command: yarn add @angular/cli && yarn run build
       - store_artifacts:
           path: ~/dist/ci-test
-          destination: dist-folder
+          destination: dist/ci-test
   deploy:
     docker:
       - image: circleci/node:10.9
