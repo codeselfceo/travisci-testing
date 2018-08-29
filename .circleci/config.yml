@@ -2,21 +2,24 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10.9.0
+      - image: circleci/node:7.10
+    working_directory: ~/ci-test
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "node_modules" }}
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
       - run:
           name: install-dependencies
           command: yarn install
       - save_cache:
           paths:
             - node_modules
-          key: dependency-cache-{{ checksum "node_modules" }}
+          key: v1-dependencies-{{ checksum "package.json" }}
   compile:
     docker:
-      - image: circleci/node:10.9.0
+      - image: circleci/node:7.10
     steps:
       - checkout
       - run:
@@ -24,7 +27,7 @@ jobs:
           command: yarn add @angular/cli && yarn run build
   deploy:
     docker:
-      - image: circleci/node:10.9.0
+      - image: circleci/node:7.10
     steps:
       - checkout
       - run:
