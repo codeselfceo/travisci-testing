@@ -24,7 +24,7 @@ jobs:
           name: compile-app
           command: yarn run build
       - store_artifacts:
-          path: ~/dist/ci-test
+          path: dist/ci-test
           destination: ci-test
   deploy:
     docker:
