@@ -32,13 +32,13 @@ jobs:
     docker:
       - image: circleci/node:10.9
     working_directory: /tmp
-    - attach_workspace:
-        at: /tmp/workspace
     steps:
       - checkout
       - restore_cache: *restore_npm_cache
       - run: *install_npm_deps
       - save_cache: *save_npm_cache
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: app-deploy
           command: yarn run deploy
