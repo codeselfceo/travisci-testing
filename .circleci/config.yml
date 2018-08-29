@@ -3,26 +3,28 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.9.0
+    working_directory: ~/ci-test
     steps:
       - checkout
       - restore_cache:
           keys:
-            - dependencies-{{ checksum "package.json" }}
+            - dependencies-{{ checksum "yarn.lock" }}
             - dependencies-
       - run:
-          name: "Installing dependencies..."
+          name: install-dependencies
           command: yarn install
       - save_cache:
           paths:
-            - ~/node_modules
-          key: dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
+            - ./node_modules
+          key: dependencies-{{ checksum "yarn.lock" }}
   compile:
     docker:
       - image: circleci/node:10.9.0
     steps:
       - checkout
       - run:
-          name: "Building application..."
+          name: app-build
           command: yarn run build
   deploy:
     docker:
@@ -30,7 +32,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Shipping..."
+          name: app-deploy
           command: yarn run deploy
 workflows:
   version: 2
