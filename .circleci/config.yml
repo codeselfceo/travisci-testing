@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.9.0
-    working_directory: ~/ci-test
     steps:
       - checkout
       - restore_cache:
@@ -13,8 +12,7 @@ jobs:
           command: yarn install
       - save_cache:
           paths:
-            - ~/.cache/yarn
-            - ./node_modules
+            - node_modules
           key: dependency-cache-{{ checksum "yarn.lock" }}
   compile:
     docker:
@@ -23,7 +21,7 @@ jobs:
       - checkout
       - run:
           name: app-build
-          command: yarn add --save @angular/cli && yarn run build
+          command: yarn add @angular/cli && yarn run build
   deploy:
     docker:
       - image: circleci/node:10.9.0
