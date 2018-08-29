@@ -25,9 +25,9 @@ jobs:
           name: compile-app
           command: yarn run build
       - persist_to_workspace:
-          root: /dist/ci-test
+          root: ~/ci-test/dist/ci-test
           paths:
-            - dist/ci-test
+            - build
   deploy:
     docker:
       - image: circleci/node:10.9
