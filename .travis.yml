@@ -14,7 +14,7 @@ jobs:
       if: branch != master
       name: "Building app..."
       script: yarn run build
-    - stage: Compile & Deploy
+    - stage: "Compile & Deploy"
       if: branch = master
       name: "Deploying app..."
       before_script: yarn run build
