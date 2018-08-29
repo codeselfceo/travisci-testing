@@ -1,40 +1,39 @@
 version: 2
+
+_reusable_commands:
+  restore_npm_cache: &restore_npm_cache
+    key: v1-dependencies-{{ checksum "package.json" }}
+  install_npm_deps: &install_npm_deps
+    name: install-dependencies
+    command: yarn install
+  save_npm_cache: &save_npm_cache
+    key: v1-dependencies-{{ checksum "package.json" }}
+    paths:
+      - node_modules
+
 jobs:
   build:
     docker:
       - image: circleci/node:10.9
-    working_directory: ~/ci-test
     steps:
       - checkout
-      - restore_cache:
-          key: v2-dependencies-{{ checksum "package.json" }}
+      - restore_cache: *restore_npm_cache
+      - run: *install_npm_deps
+      - save_cache: *save_npm_cache
       - run:
-          name: install-dependencies
-          command: yarn install
-      - save_cache:
-          key: v2-dependencies-{{ checksum "package.json" }}
-          paths:
-            - ~/node_modules
-  compile:
-    docker:
-      - image: circleci/node:10.9
-    steps:
-      - checkout
-      - restore_cache:
-          key: v2-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: app-build
-          command: yarn add @angular/cli && yarn run build
+          name: compile-app
+          command: yarn run build
       - store_artifacts:
-          path: /temp/ci-test/dist/ci-test
+          path: ~/dist/ci-test
           destination: ci-test
   deploy:
     docker:
       - image: circleci/node:10.9
     steps:
       - checkout
-      - restore_cache:
-          key: v2-dependencies-{{ checksum "package.json" }}
+      - restore_cache: *restore_npm_cache
+      - run: *install_npm_deps
+      - save_cache: *save_npm_cache
       - run:
           name: app-deploy
           command: yarn add firebase-tools && yarn run deploy
