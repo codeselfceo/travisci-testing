@@ -18,7 +18,7 @@ jobs:
       if: branch = master
       env:
         - STAGE_NAME="Getting ready to rock..."
-      name: ${STAGE_NAME}
+      name: $STAGE_NAME
       before_script: yarn run build
       script: if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then yarn run deploy; fi
 # jobs:
