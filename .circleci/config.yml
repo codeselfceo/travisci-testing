@@ -15,7 +15,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.9
-    working_directory: /tmp
+    working_directory: ~/ci-test
     steps:
       - checkout
       - restore_cache: *restore_npm_cache
