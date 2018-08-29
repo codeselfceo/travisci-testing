@@ -19,11 +19,12 @@ jobs:
   compile:
     docker:
       - image: circleci/node:10.9.0
+    working_directory: /tmp/ci-test
     steps:
       - checkout
       - run:
           name: "Building application..."
-          command: yarn run build
+          command: ./node_modules/.bin/ng build
   deploy:
     docker:
       - image: circleci/node:10.9.0
