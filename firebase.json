@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "~/Container 0/dist/ci-test",
+    "public": "dist/ci-test",
     "ignore": [
       "firebase.json",
       "**/.*",

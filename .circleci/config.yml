@@ -27,7 +27,7 @@ jobs:
       - persist_to_workspace:
           root: workspace
           paths:
-            - ci-test
+            - dist/ci-test
   deploy:
     docker:
       - image: circleci/node:10.9
