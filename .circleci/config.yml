@@ -38,7 +38,7 @@ jobs:
       - run: *install_npm_deps
       - save_cache: *save_npm_cache
       - attach_workspace:
-          at: /tmp/workspace
+          at: ~/ci-test/workspace
       - run:
           name: app-deploy
           command: yarn run deploy
