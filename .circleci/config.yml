@@ -14,7 +14,7 @@ jobs:
       - save_cache:
           key: v2-dependencies-{{ checksum "package.json" }}
           paths:
-            - "node_modules"
+            - ~/node_modules
   compile:
     docker:
       - image: circleci/node:10.9
@@ -23,18 +23,11 @@ jobs:
       - restore_cache:
           key: v2-dependencies-{{ checksum "package.json" }}
       - run:
-          name: install-dependencies
-          command: yarn install
-      - run:
           name: app-build
           command: yarn run build
       - store_artifacts:
-          path: "dist/ci-test"
+          path: ~/dist/ci-test
           destination: dist-folder
-      - save_cache:
-          key: v2-dependencies-{{ checksum "package.json" }}
-          paths:
-            - "node_modules"
   deploy:
     docker:
       - image: circleci/node:10.9
@@ -43,15 +36,8 @@ jobs:
       - restore_cache:
           key: v2-dependencies-{{ checksum "package.json" }}
       - run:
-          name: install-dependencies
-          command: yarn install
-      - run:
           name: app-deploy
           command: yarn run deploy
-      - save_cache:
-          key: v2-dependencies-{{ checksum "package.json" }}
-          paths:
-            - "node_modules"
 workflows:
   version: 2
   compile_and_test:
