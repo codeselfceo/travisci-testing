@@ -10,7 +10,12 @@ jobs:
     - stage: Install
       name: "Installing dependencies..."
       script: yarn install
+    - stage: Build
+      if: branch != master
+      name: "Building app..."
+      script: yarn run build
     - stage: Compile
+      if: branch = master
       name: "Building & Shipping..."
       before_script: yarn run build
       script: if [ "${TRAVIS_BRANCH}" = "master" ]; then yarn run deploy; fi
