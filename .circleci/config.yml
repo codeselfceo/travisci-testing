@@ -6,13 +6,15 @@ jobs:
     working_directory: ~/ci-test
     steps:
       - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "node_modules" }}
       - run:
           name: install-dependencies
           command: yarn install
       - save_cache:
-          paths:
-            - node_modules
           key: v1-dependencies-{{ checksum "node_modules" }}
+          paths:
+            - "node_modules"
   compile:
     docker:
       - image: circleci/node:10.9
