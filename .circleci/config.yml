@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  install:
+  build:
     docker:
       - image: circleci/node:10.9.0
     steps:
@@ -19,12 +19,11 @@ jobs:
   compile:
     docker:
       - image: circleci/node:10.9.0
-    working_directory: /tmp/ci-test
     steps:
       - checkout
       - run:
           name: "Building application..."
-          command: ./node_modules/.bin/ng build
+          command: yarn run build
   deploy:
     docker:
       - image: circleci/node:10.9.0
@@ -37,13 +36,13 @@ workflows:
   version: 2
   compile_and_test:
     jobs:
-      - install
+      - build
       - compile:
           requires:
-            - install
+            - build
       - deploy:
           requires:
-            - install
+            - build
             - compile
           filters:
             branches:
