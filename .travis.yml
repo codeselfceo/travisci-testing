@@ -12,5 +12,5 @@ jobs:
       script: yarn install
     - stage: Compile
       name: "Building & Shipping..."
-      before_script: yarn run-script build
+      before_script: yarn run build
       script: if [ "${TRAVIS_BRANCH}" = "master" ]; then yarn run deploy; fi
