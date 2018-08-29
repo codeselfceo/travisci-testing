@@ -12,14 +12,14 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "node_modules" }}
   compile:
     docker:
       - image: circleci/node:10.9
     steps:
       - checkout
       - restore_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "node_modules" }}
       - run:
           name: app-build
           command: yarn run build
@@ -29,7 +29,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "node_modules" }}
       - run:
           name: app-deploy
           command: yarn run deploy
