@@ -15,6 +15,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.9
+    working_directory: /tmp
     steps:
       - checkout
       - restore_cache: *restore_npm_cache
@@ -23,12 +24,16 @@ jobs:
       - run:
           name: compile-app
           command: yarn run build
-      - store_artifacts:
-          path: dist/ci-test
-          destination: /dist/ci-test
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - ci-test
   deploy:
     docker:
       - image: circleci/node:10.9
+    working_directory: /tmp
+    - attach_workspace:
+        at: /tmp/workspace
     steps:
       - checkout
       - restore_cache: *restore_npm_cache
