@@ -42,13 +42,9 @@ workflows:
   compile_and_test:
     jobs:
       - build
-      - compile:
-          requires:
-            - build
       - deploy:
           requires:
             - build
-            - compile
           filters:
             branches:
               only: master
