@@ -14,8 +14,8 @@ jobs:
       if: branch != master
       name: "Building app..."
       script: yarn run build
-    - stage: Compile
+    - stage: Compile & Ship
       if: branch = master
-      name: "Building & Shipping..."
+      name: "Shipping app..."
       before_script: yarn run build
       script: if [ "${TRAVIS_BRANCH}" = "master" ]; then yarn run deploy; fi
