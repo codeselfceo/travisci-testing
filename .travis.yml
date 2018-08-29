@@ -16,6 +16,22 @@ jobs:
       script: yarn run build
     - stage: "Deploy"
       if: branch = master
-      name: "Getting ready to deploy..."
+      env:
+        - STAGE_NAME="Getting ready to rock..."
+      name: ${STAGE_NAME}
       before_script: yarn run build
       script: if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then yarn run deploy; fi
+# jobs:
+#   include:
+#     - stage: Install
+#       name: "Installing dependencies..."
+#       script: yarn install
+#     - stage: Build
+#       if: branch != master
+#       name: "Building app..."
+#       script: yarn run build
+#     - stage: "Deploy"
+#       if: branch = master
+#       name: "Getting ready to deploy..."
+#       before_script: yarn run build
+#       script: if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then yarn run deploy; fi
