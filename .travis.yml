@@ -39,7 +39,7 @@ jobs:
       name: "Building app..."
       script: yarn run build
       after_success:
-        - cp config/dist/ci-test dist/ci-test
+        - cp ~/dist/ci-test dist/ci-test
     - stage: "Deploy"
       name: "Shipping app..."
       script: skip
