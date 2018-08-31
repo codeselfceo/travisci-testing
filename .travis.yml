@@ -26,8 +26,7 @@ cache:
   yarn: true
   directories:
     - node_modules
-    - $HOME/dist/ci-test
-    - /dist/ci-test
+    - dist/ci-test
 
 matrix:
   fast_finish: true
@@ -41,7 +40,7 @@ jobs:
       name: "Building app..."
       script: yarn run build
       after_success:
-        - cp dist/ci-test dist/ci-test
+        - cp $HOME/ci-test/dist/ci-test dist/ci-test
     - stage: "Deploy"
       name: "Shipping app..."
       script: skip
