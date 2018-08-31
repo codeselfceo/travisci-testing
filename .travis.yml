@@ -38,7 +38,7 @@ jobs:
     - stage: Build
       name: "Building app..."
       script: yarn run build
-      after_sucess:
+      after_success:
         - cp config/dist/ci-test dist/ci-test
     - stage: "Deploy"
       name: "Shipping app..."
