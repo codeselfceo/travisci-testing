@@ -20,43 +20,12 @@
 #       before_script: yarn run build
 #       script: if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then yarn run deploy; fi
 
-# language: node_js
-# node_js: stable
-# cache:
-#   yarn: true
-#   directories:
-#     - node_modules
-#     - dist/ci-test
-
-# matrix:
-#   fast_finish: true
-
-# jobs:
-#   include:
-#     - stage: Install
-#       name: "Installing dependencies..."
-#       script: yarn install
-#     - stage: Build
-#       name: "Building app..."
-#       script: yarn run build
-#       after_success:
-#         - mv $HOME/ci-test/dist/ci-test dist/ci-test
-#     - stage: "Deploy"
-#       name: "Shipping app..."
-#       script: skip
-#       deploy:
-#         skip_cleanup: true
-#         provider: script
-#         script: yarn run deploy
-#       if: branch = master
-
 language: node_js
 node_js: stable
 cache:
   yarn: true
   directories:
     - node_modules
-    - dist/ci-test
 
 matrix:
   fast_finish: true
@@ -70,7 +39,7 @@ jobs:
       name: "Building app..."
       script: yarn run build
       after_success:
-        - mv dist/ci-test dist/ci-test
+        - mv $HOME/ci-test/dist/ci-test dist/ci-test
     - stage: "Deploy"
       name: "Shipping app..."
       script: skip
