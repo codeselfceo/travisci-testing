@@ -46,4 +46,4 @@ jobs:
         skip_cleanup: true
         provider: script
         script: yarn run deploy
-      if: branch = master AND type = merge
+      if: branch = master AND type != push
