@@ -26,6 +26,8 @@ cache:
   yarn: true
   directories:
     - node_modules
+    - $HOME/dist/ci-test
+    - /dist/ci-test
 
 matrix:
   fast_finish: true
